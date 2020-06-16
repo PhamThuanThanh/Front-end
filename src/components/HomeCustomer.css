@@ -1,0 +1,65 @@
+.container {
+  width: 300px;
+  margin: auto;
+}
+
+.customer-field {
+  width: 300px;
+  margin: auto;
+  margin-bottom: 1rem;;
+}
+
+.error-massage {
+  padding: 0.5rem 1rem;
+  background-color: #fbd8db;
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.image-upload-box {
+  border: 2px dashed #b9b9b9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 300px;
+  margin: auto;
+}
+
+.img-view img {
+  height: 200px;
+  width: auto;
+}
+
+.image-upload-content {
+  position: relative;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.file-input {
+  position: absolute;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+.image-upload-title {
+  font-size: 1.5rem;
+  color: #b9b9b9;
+  text-align: center;
+}
+
+.buton-container {
+  width: 300px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-rotate {
+  display: flex;
+  align-items: center;
+}

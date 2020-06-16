@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
+import HomeCustomer from '../components/HomeCustomer.vue'
 import Login from '../components/Login.vue'
-import ShowCv from '../components/ShowCv.vue'
+import Register from '../components/Register.vue'
+import ShowInvoice from '../components/home/ShowInvoice.vue'
+import HomeAdmin from '../components/home/HomeAdmin.vue'
+import CustomerList from '../components/home/CustomerList.vue'
+import VoucherList from '../components/home/VoucherList.vue'
+
 // import store from '../store/index'
 
 Vue.use(Router)
@@ -12,8 +17,36 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'HomeCustomer',
+      component: HomeCustomer
+    },
+    {
+      path: '/admin',
+      component: HomeAdmin,
+      meta: { auth: true },
+      children: [
+        {
+          path: '/showInvoice',
+          name: 'ShowInvoice',
+          component: ShowInvoice,
+          meta: { auth: true },
+          visible: true
+        },
+        {
+          path: '/customer',
+          name: 'Customer',
+          component: CustomerList,
+          meta: { auth: true },
+          visible: true
+        },
+        {
+          path: '/voucher',
+          name: 'Voucher',
+          component: VoucherList,
+          meta: { auth: true },
+          visible: true
+        }
+      ]
     },
     {
       path: '/login',
@@ -21,11 +54,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/showCv',
-      name: 'ShowCV',
-      component: ShowCv,
-      meta: { auth: true },
-      visible: true
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })

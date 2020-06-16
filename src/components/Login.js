@@ -27,18 +27,19 @@ export default {
       bodyFormData.set('password', this.password)
       axios({
         method: 'post',
-        url: 'http://localhost:8000/home/login',
+        url: 'http://localhost:8000/login',
         data: bodyFormData,
         headers: { 'Content-Type': 'multipart/form-data' }
       })
         .then(response => {
           // handle success
           if (response.data['data'] !== 'Fail') {
+            console.log(response)
             let data = {'success': true,
               'username': response.data['username']}
             this.$store.dispatch('loginSuccess', data)
-            localStorage.setItem('user-token', response.data['data'])
-            this.$router.push('showCv')
+            localStorage.setItem('user-token', response.data['data'])            
+            this.$router.push('showInvoice')
           } else this.isLogin = true
         })
         .catch(function (response) {

@@ -13,9 +13,9 @@ const toLower = text => {
   return text.toString().toLowerCase()
 }
 
-const searchByName = (items, term) => {
+const searchByID = (items, term) => {
   if (term) {
-    return items.filter(item => toLower(item.fullName).includes(toLower(term)) || toLower(item.skill).includes(toLower(term)))
+    return items.filter(item => toLower(item.id_customer).includes(toLower(term)) ||  toLower(item.id_invoice).includes(toLower(term)))
   }
 
   return items
@@ -30,8 +30,8 @@ export default {
       searched: [],
       month: format(now, 'dd-MM-yyyy').split('-')[1],
       year: format(now, 'dd-MM-yyyy').split('-')[2],
-      allCv: null,
-      cvs: null,
+      allInvoice: null,
+      invoices: null,
       user: this.$store.getters.username,
       showButtonEdit: false,
       itemCv: null,
@@ -50,10 +50,10 @@ export default {
   },
   methods: {
     getCv () {
-      const token = localStorage.getItem('user-token')
+      const token = localStorage.getItem('user-token')      
       if (token) {
         axios.defaults.headers.common['Authorization'] = token
-        axios.get('http://localhost:8000/home/getCv?month=' + this.month + '&year=' + this.year)
+        axios.get('http://localhost:8000/listInvoice')
           .then(response => {
             // handle success
             if (response.data['username'] === '') {
@@ -62,8 +62,8 @@ export default {
               let data = {'success': true,
                 'username': response.data['username']}
               this.$store.dispatch('loginSuccess', data)
-              this.allCv = response.data['data']
-              this.cvs = this.allCv
+              this.allInvoice = response.data['data']
+              this.invoices = this.allInvoice
               this.user = this.$store.getters.username
             }
           })
@@ -77,28 +77,9 @@ export default {
       } else this.$router.push('login')
     },
     searchOnTable () {
-      this.cvs = searchByName(this.allCv, this.search)
+      this.invoices = searchByID(this.allInvoice, this.search)
     },
-    logout () {
-      const token = localStorage.getItem('user-token')
-      if (token) {
-        axios.defaults.headers.common['Authorization'] = token
-        axios.get('http://localhost:8000/home/logout')
-          .then(response => {
-            // handle success
-            console.log(response)
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error)
-          })
-          .then(function () {
-            // always executed
-          })
-      }
-      localStorage.removeItem('user-token')
-      this.$router.push('login')
-    },
+    
     demo (item) {
       this.itemCv = item
       this.showButtonEdit = true
@@ -161,6 +142,10 @@ export default {
             console.log(response)
           })
       }
+    },
+    a () {
+      console.log('herrrrrr')
+      this.$router.push('login')
     }
   }
 }
